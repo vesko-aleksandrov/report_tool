@@ -1,0 +1,6 @@
+[% FOREACH item IN MENU %]
+
+<a href="/report/[% item.LABEL %]">[% item.LABEL %]</a>
+<br>
+
+[% END %]

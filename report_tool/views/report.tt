@@ -1,0 +1,107 @@
+<form method="POST" action="">
+SELECT
+
+[% F = DB_DES.$TABLE.FIELDS %]
+
+[% FOREACH k IN DB_DES.$TABLE.FIELDS %]
+[% IF k.value.IS_LINK %] 
+	[% LT = k.value.LT %]
+	<div style="margin-left:45px;">
+	<em>[% DB_DES.$LT.LABEL %]</em>
+	[% FOREACH lk IN DB_DES.$LT.FIELDS %]
+		<div class="checkbox">
+		    <label>
+			          <input type="checkbox" name="ttt" value="[% lk.key %]" /> [% lk.value.LABEL %]
+			</label>
+		</div>
+		
+	[% END %]
+	</div>
+[% ELSE %]
+<div class="checkbox">
+    <label>
+	      <input type="checkbox" name="ttt" value="[% k.key %]" /> [% k.value.LABEL %]
+	</label>
+</div>
+
+[% END %]
+
+[% END %]
+
+<div id="conditions">
+<div class="cond">
+<select name="firstCondition">
+	[% FOREACH f IN DB_DES.$TABLE.FIELDS %]
+			[% IF f.value.IS_LINK %]
+				[% LT = f.value.LT %]
+				[% FOREACH lf IN DB_DES.$LT.FIELDS %]
+					<option> --- [% DB_DES.$LT.LABEL %] / [% lf.value.LABEL %]</option>
+				[% END %]
+			[% ELSE %]
+			<option>[% f.value.LABEL %]</option>
+			[% END %]
+	[% END %]
+</select>
+
+<select name="secondCondition">
+	<option>=</option>
+	<option>&lt;</option>
+	<option>&gt;</option>
+	<option>&lt;=</option>
+	<option>&gt;=</option>
+	<option>is null</option>
+	<option>not null</option>
+</select>
+<input type="text" name="thirdCondition" />
+<br/>
+</div>
+<a href="#" class="add_cond"><span class="glyphicon glyphicon-plus-sign"></span></a>
+
+</div>
+
+<input type="submit" value="Submit Query" />
+</form>
+
+<br />
+<table class="table" style="border: 2px solid red">
+<tr>
+[% FOREACH q IN QUERY %]
+	<td style="border: 2px solid red">[% q %]</td>
+[% END %]
+</tr>
+
+[% FOREACH ff IN FF %]
+<tr>
+<td style="border: 2px solid red">[% ff %]</td>
+</tr>
+[% END %]
+</table>
+
+
+<script language="javascript">
+      
+$(function() {
+        var conditions_div = $('#conditions');
+        var i = $('#conditions') .children('div.cond').size() + 1;
+
+        
+        $('.add_cond').click(function() {
+				$( "div.cond:first" ).clone().appendTo( conditions_div );
+                i++;
+
+        		$('<span class="rem_cond'+ i + '"><a href="#"><span class="glyphicon glyphicon-remove-sign"></span></a></span>').appendTo( conditions_div );        
+
+				$('.rem_cond'+i).click(function() { 
+                	if( i > 2 ) {
+                        $(this).prev().remove();
+						$(this).remove();
+                        i--;
+                	}
+                	return false;
+        		});
+
+                return false;
+        });
+        
+});
+</script>
