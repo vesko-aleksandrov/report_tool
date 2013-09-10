@@ -64,17 +64,26 @@ SELECT
 
 <br />
 <table class="table" style="border: 2px solid red">
-<tr>
-[% FOREACH q IN QUERY %]
-	<td style="border: 2px solid red">[% q %]</td>
-[% END %]
-</tr>
+	<tr>
+		[% C = 0 %]
+		[% FOREACH q IN QUERY %]
+			<td style="border: 2px solid blue">[% q %]</td>
+			[% C = C + 1 %]
+		[% END %]
+	</tr>
 
-[% FOREACH ff IN FF %]
-<tr>
-<td style="border: 2px solid red">[% ff %]</td>
-</tr>
-[% END %]
+	[% F = C %]
+	<tr>
+		[% FOREACH ff IN FF %]
+			[% IF F!=0 %]
+				<td style="border: 2px solid red">[% ff %]</td>
+				[% F = F - 1 %]
+			[% ELSE %]
+				</tr><tr><td style="border: 2px solid red">[% ff %]</td>
+				[% F = C - 1 %]
+			[% END %]
+		[% END %]
+	</tr>
 </table>
 
 

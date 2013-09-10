@@ -43,7 +43,6 @@ post '/report/:table' => sub {
 	my $firstCondition	= $params->{'firstCondition'};
 	my $secondCondition	= $params->{'secondCondition'};
 	my $thirdCondition	= $params->{'thirdCondition'};
-
 	my $cols;
 	my @data;
 
@@ -59,7 +58,7 @@ post '/report/:table' => sub {
 	if (defined $cols)
 	{
 		my $dbh = db_connect();
-		my $sth = $dbh->prepare("select $cols from USERS");
+		my $sth = $dbh->prepare("select $cols from $table");
 		$sth->execute();
 	
 
@@ -79,6 +78,7 @@ post '/report/:table' => sub {
 			push @link_tables, $1;
 		}
 	}	
+
 
 	template 'report', {
 		DB_DES		=> \%DB_DES,
