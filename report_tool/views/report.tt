@@ -35,10 +35,10 @@ SELECT
 			[% IF f.value.IS_LINK %]
 				[% LT = f.value.LT %]
 				[% FOREACH lf IN DB_DES.$LT.FIELDS %]
-					<option> --- [% DB_DES.$LT.LABEL %] / [% lf.value.LABEL %]</option>
+					<option value="[% lf.key %]"> --- [% DB_DES.$LT.LABEL %] / [% lf.value.LABEL %]</option>
 				[% END %]
 			[% ELSE %]
-			<option>[% f.value.LABEL %]</option>
+			<option value="[% f.key %]">[% f.value.LABEL %]</option>
 			[% END %]
 	[% END %]
 </select>
@@ -59,7 +59,7 @@ SELECT
 
 </div>
 
-<input type="submit" value="Submit Query" />
+<input type="submit" id="bsearch" class="btn" value="Submit Query" />
 </form>
 
 <br />
@@ -112,5 +112,11 @@ $(function() {
                 return false;
         });
         
+});
+
+$('#bsearch').hover(function(){
+ $(this).css("background-color","#B8E6E6"); 
+}, function(){
+ $(this).css("background-color","#C8C8C8"); 
 });
 </script>

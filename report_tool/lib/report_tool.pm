@@ -45,7 +45,7 @@ post '/report/:table' => sub {
 	my $thirdCondition	= $params->{'thirdCondition'};
 	my $cols;
 	my @data;
-
+	
 	if(ref($marked) eq 'ARRAY')
 	{
 		$cols = join( ", ", @$marked );
@@ -58,7 +58,7 @@ post '/report/:table' => sub {
 	if (defined $cols)
 	{
 		my $dbh = db_connect();
-		my $sth = $dbh->prepare("select $cols from $table");
+		my $sth = $dbh->prepare("SELECT $cols FROM $table WHERE $firstCondition $secondCondition $thirdCondition ORDER BY $firstCondition");
 		$sth->execute();
 	
 
