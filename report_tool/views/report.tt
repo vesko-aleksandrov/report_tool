@@ -44,13 +44,13 @@ SELECT
 </select>
 
 <select name="secondCondition">
+	<option>not null</option>
 	<option>=</option>
 	<option>&lt;</option>
 	<option>&gt;</option>
 	<option>&lt;=</option>
 	<option>&gt;=</option>
 	<option>is null</option>
-	<option>not null</option>
 </select>
 <input type="text" name="thirdCondition" />
 <br/>

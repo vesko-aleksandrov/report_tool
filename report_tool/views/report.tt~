@@ -35,22 +35,22 @@ SELECT
 			[% IF f.value.IS_LINK %]
 				[% LT = f.value.LT %]
 				[% FOREACH lf IN DB_DES.$LT.FIELDS %]
-					<option> --- [% DB_DES.$LT.LABEL %] / [% lf.value.LABEL %]</option>
+					<option value="[% lf.key %]"> --- [% DB_DES.$LT.LABEL %] / [% lf.value.LABEL %]</option>
 				[% END %]
 			[% ELSE %]
-			<option>[% f.value.LABEL %]</option>
+			<option value="[% f.key %]">[% f.value.LABEL %]</option>
 			[% END %]
 	[% END %]
 </select>
 
 <select name="secondCondition">
+	<option>not null</option>
 	<option>=</option>
 	<option>&lt;</option>
 	<option>&gt;</option>
 	<option>&lt;=</option>
 	<option>&gt;=</option>
 	<option>is null</option>
-	<option>not null</option>
 </select>
 <input type="text" name="thirdCondition" />
 <br/>
